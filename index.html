@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pawtopia</title>
+    <!-- DaisyUI CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google font CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: '#da373d',
+            }
+          }
+          fontFamily: {
+        'lato': ["Lato", "serif"]
+
+      }
+        }
+      }
+    </script>
+  </head>
+  <body class="w-11/12 mx-auto">
+    <header>
+      <nav>
+        <div class="navbar bg-base-100">
+          <div class="navbar-start">
+            <div class="dropdown">
+              <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h8m-8 6h16"
+                  />
+                </svg>
+              </div>
+              <ul
+                tabindex="0"
+                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              >
+                <li><a>Item 1</a></li>
+                <li><a>Item 3</a></li>
+              </ul>
+            </div>
+            <img class="w-[150px]" src="./logo.png" alt="" />
+          </div>
+          <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1">
+              <li><a>Home</a></li>
+              <li><a>Shop</a></li>
+              <li><a>Contact</a></li>
+            </ul>
+          </div>
+          <div class="navbar-end">
+            <img
+              class="w-[35px]"
+              src="https://img.icons8.com/?size=80&id=Cssf43cjx2fu&format=png"
+              alt=""
+            />
+          </div>
+        </div>
+      </nav>
+      <section id="hero-section" class="py-6">
+        <!-- Text-Content -->
+        <div class="flex flex-col justify-center items-center gap-4">
+          <h2 class="text-xl font-medium">Bringing Families Together ❤️‍🔥</h2>
+          <h1 class="text-4xl font-bold text-center">
+            Your Path to Adoption <br />
+            Starts Here
+          </h1>
+          <p class="text-center">
+            It is a long established fact that a reader will be distracted by
+            the readable content of a page when looking <br />
+            at its layout. The point of using Lorem Ipsum is that it has a.
+          </p>
+          <button class="btn bg-blue-400 hover:bg-blue-300">View More</button>
+        </div>
+        <div class="flex justify-center items-center pt-5">
+          <img class="w-[600px]" src="./images/pet.webp" alt="" />
+        </div>
+      </section>
+    </header>
+    <main>
+      <div>
+        <!-- 1st div -->
+        <div>
+          <h2>Adopt Your Best Friend</h2>
+          <p>
+            It is a long established fact that a reader will be distracted by
+            the readable content of a page when looking at its layout. The point
+            of using Lorem Ipsum is that it has a.
+          </p>
+        </div>
+        <!-- Category div -->
+        <div></div>
+        <!-- best deal -->
+        <div></div>
+        <!-- Pet Card -->
+        <div></div>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+</html>
