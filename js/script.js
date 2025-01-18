@@ -9,4 +9,15 @@ loadCategory();
 // show category 
 const showCategory = (category) => {
  console.log(category)
+ const categoryDiv = document.getElementById("categories");
+ category.forEach(element => {
+  console.log(element.category)
+  // create a button
+  const buttonContainer = document.createElement("div");
+  buttonContainer.innerHTML = `
+    <button id = "btn-${element.category}" onclick = "loadCategoryVideo(${element.category})" class = "btn category-btn" >${element.category} </button>
+    `
+  //  add button to the category container
+  categoryDiv.append(buttonContainer);
+ });
 }
