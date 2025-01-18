@@ -15,7 +15,7 @@ const showCategory = (category) => {
   // create a button
   const buttonContainer = document.createElement("div");
   buttonContainer.innerHTML = `
-    <button id = "btn-${element.category}" onclick = "loadCategoryVideo(${element.category})" class = "btn category-btn" >${element.category} </button>
+    <button class = "flex gap-2 btn border bg-slate-50 px-6"> <img class = "w-[30px]" src ="${element.category_icon}" />  ${element.category} </button>
     `
   //  add button to the category container
   categoryDiv.append(buttonContainer);
