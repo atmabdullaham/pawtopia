@@ -43,7 +43,7 @@ showSpinner();
 
 setTimeout(function () {
   loadPet()
-}, 3000)
+}, 1000)
 
 const loadPetsCategory = async (petCategory) => {
   console.log(petCategory)
@@ -73,7 +73,7 @@ const showPets = (pets) => {
     <p><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.price}</p>
     <hr>
     <div class=" flex justify-between card-actions ">
-     <button class="btn"><i class="fa-regular fa-thumbs-up"></i></button>
+     <button onclick = "showLikedPic('${pet.image}')" class="btn"><i class="fa-regular fa-thumbs-up"></i></button>
      <button class="btn text-teal-600 text-lg font-semibold">Adopt</button>
      <button class="btn text-teal-600 text-lg font-semibold">Details</button>
     </div>
@@ -85,3 +85,21 @@ const showPets = (pets) => {
   });
 }
 
+const showLikedPic = (image) => {
+  console.log(image)
+  const likedPetsContainer = document.getElementById("liked-pets")
+  const picContainer = document.createElement("div")
+  picContainer.classList = "bg-base-100 border rounded-xl max-h-fit"
+  picContainer.innerHTML = `
+     <figure class="p-2 rounded-xl">
+    <img
+     src= ${image}
+     alt="Pet"
+     class="rounded-xl" />
+   </figure>
+  `
+  likedPetsContainer.appendChild(picContainer)
+}
+
+
+// Modal
