@@ -1,58 +1,78 @@
 // load category
 const loadCategory = async () => {
- const res = await fetch("https://openapi.programming-hero.com/api/peddy/categories");
- const data = await res.json();
- showCategory(data.categories);
+  const res = await fetch("https://openapi.programming-hero.com/api/peddy/categories");
+  const data = await res.json();
+  showCategory(data.categories);
 }
 loadCategory();
 
 // show category 
 const showCategory = (category) => {
- // console.log(category)
- const categoryDiv = document.getElementById("categories");
- category.forEach(element => {
-  // console.log(element.category)
-  // create a button
-  const buttonContainer = document.createElement("div");
-  buttonContainer.innerHTML = `
-    <button class = "flex gap-2 btn border bg-slate-50 px-6"> <img class = "w-[30px]" src ="${element.category_icon}" />  ${element.category} </button>
+  // console.log(category)
+  const categoryDiv = document.getElementById("categories");
+  category.forEach(element => {
+    // console.log(element.category)
+    // create a button
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList = "py-6"
+    buttonContainer.innerHTML = `
+    <button class = "flex gap-4 my-6  btn border bg-slate-100 px-10 font-bold text-xl"> <img class = "w-[30px]" src ="${element.category_icon}" />  ${element.category} </button>
     `
-  //  add button to the category container
-  categoryDiv.append(buttonContainer);
- });
+    //  add button to the category container
+    categoryDiv.append(buttonContainer);
+  });
 }
 
 const loadPet = async () => {
- const res = await fetch("https://openapi.programming-hero.com/api/peddy/pets");
- const data = await res.json();
- showPets(data.pets)
+  document.getElementById("spin").classList.add("hidden")
+  document.getElementById("pet-card").classList.add("grid")
+
+  const res = await fetch("https://openapi.programming-hero.com/api/peddy/pets");
+  const data = await res.json();
+  showPets(data.pets)
 }
-loadPet()
+
+const showSpinner = () => {
+  document.getElementById("spin").classList.remove("hidden");
+  document.getElementById("pet-card").classList.remove("grid")
+}
+showSpinner();
+
+setTimeout(function () {
+  loadPet()
+}, 3000)
+
 
 const showPets = (pets) => {
- const petCardContainer = document.getElementById("pet-card");
- pets.forEach(pet => {
-  console.log(pet)
-  const cardDiv = document.createElement("div")
-  cardDiv.classList = "card bg-base-100  shadow-xl"
-  cardDiv.innerHTML = `
-    <figure class="px-10 pt-10">
+  const petCardContainer = document.getElementById("pet-card");
+  pets.forEach(pet => {
+    console.log(pet)
+    const cardDiv = document.createElement("div")
+    cardDiv.classList = " bg-base-100  shadow-xl border-gray-300 border"
+    cardDiv.innerHTML = `
+    <figure class="px-5 pt-5">
     <img
      src= ${pet.image}
-     alt="Shoes"
+     alt="Pet"
      class="rounded-xl" />
    </figure>
-   <div class="card-body items-center text-center">
-    <h2 class="card-title">Shoes!</h2>
-    <p>If a dog chews shoes whose shoes does he choose?</p>
-    <div class="card-actions">
-     <button class="btn btn-primary">Buy Now</button>
+   <div class=" p-5 flex flex-col gap-3">
+    <h2 class="text-2xl font-bold">${pet.pet_name}</h2>
+    <p class = ""><i class="fa-solid fa-qrcode"></i> Breed: ${pet.breed}</p>
+    <p><i class="fa-solid fa-calendar-days"></i> Birth: ${pet.date_of_birth}</p>
+    <p><i class="fa-solid fa-mars-and-venus"></i>  Gender: ${pet.gender}</p>
+    <p><i class="fa-solid fa-dollar-sign"></i>Price: ${pet.price}</p>
+    <hr>
+    <div class=" flex justify-between card-actions ">
+     <button class="btn"><i class="fa-regular fa-thumbs-up"></i></button>
+     <button class="btn ">Adopt</button>
+     <button class="btn ">Details</button>
     </div>
    </div>
   `
-  petCardContainer.appendChild(cardDiv)
+    petCardContainer.appendChild(cardDiv)
 
 
- });
+  });
 }
 

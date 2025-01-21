@@ -1,0 +1,61 @@
+// load category
+const loadCategory = async () => {
+ const res = await fetch("https://openapi.programming-hero.com/api/peddy/categories");
+ const data = await res.json();
+ showCategory(data.categories);
+}
+loadCategory();
+
+// show category 
+const showCategory = (category) => {
+ // console.log(category)
+ const categoryDiv = document.getElementById("categories");
+ category.forEach(element => {
+  // console.log(element.category)
+  // create a button
+  const buttonContainer = document.createElement("div");
+  buttonContainer.innerHTML = `
+    <button class = "flex gap-2 btn border bg-slate-50 px-6"> <img class = "w-[30px]" src ="${element.category_icon}" />  ${element.category} </button>
+    `
+  //  add button to the category container
+  categoryDiv.append(buttonContainer);
+ });
+}
+
+const loadPet = async () => {
+ const res = await fetch("https://openapi.programming-hero.com/api/peddy/pets");
+ const data = await res.json();
+ showPets(data.pets)
+}
+
+
+loadPet()
+
+const showPets = (pets) => {
+ const petCardContainer = document.getElementById("pet-card");
+ pets.forEach(pet => {
+  console.log(pet)
+  const cardDiv = document.createElement("div")
+  cardDiv.classList = "card bg-base-100  shadow-xl"
+  cardDiv.innerHTML = `
+    <figure class="px-10 pt-10">
+    
+    <img
+     src= ${pet.image}
+     alt="Pet"
+     class="rounded-xl" />
+   </figure>
+   <div class="card-body items-center text-center">
+    <h2 class="card-title">${pet.pet_name}</h2>
+    <p>breed: ${pet.breed}</p>
+    <div class="card-actions">
+     <button class="btn btn-primary">Buy Now</button>
+    </div>
+   </div>
+  `
+  petCardContainer.appendChild(cardDiv)
+
+
+ });
+}
+
