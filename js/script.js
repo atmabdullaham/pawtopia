@@ -27,7 +27,7 @@ const showCategory = (category) => {
 
 const loadPet = async () => {
   document.getElementById("spin").classList.add("hidden")
-  document.getElementById("pet-card").classList.add("grid")
+  // document.getElementById("pet-card").classList.add("grid")
 
   const res = await fetch(`https://openapi.programming-hero.com/api/peddy/pets`);
   const data = await res.json();
@@ -37,19 +37,28 @@ const loadPet = async () => {
 
 const showSpinner = () => {
   document.getElementById("spin").classList.remove("hidden");
-  document.getElementById("pet-card").classList.remove("grid")
-}
+  // document.getElementById("pet-card").classList.remove("grid")
+  const petCardDiv = document.getElementById("container");
+  petCardDiv.prepend(document.getElementById('spin'));
+  const petCardContainer = document.getElementById("pet-card");
+  petCardContainer.innerHTML = "";
+};
 showSpinner();
-
 setTimeout(function () {
   loadPet()
-}, 1000)
+}, 3000)
 
 const loadPetsCategory = async (petCategory) => {
+
   // console.log(petCategory)
   const res = await fetch(`https://openapi.programming-hero.com/api/peddy/category/${petCategory}`)
   const data = await res.json();
-  showPets(data.data);
+  showSpinner();
+  setTimeout(function () {
+    document.getElementById("spin").classList.add("hidden")
+    showPets(data.data);
+  }, 1000)
+
 }
 const showPets = (pets) => {
   const petCardContainer = document.getElementById("pet-card");
@@ -74,7 +83,7 @@ const showPets = (pets) => {
     <hr>
     <div class=" flex justify-between card-actions ">
      <button onclick = "showLikedPic('${pet.image}')" class="btn"><i class="fa-regular fa-thumbs-up"></i></button>
-     <button onclick = "openCloseModal()" class="btn openModal text-teal-600 text-lg font-semibold">Adopt</button>
+     <button id = "clickedAdoption" onclick="loadAdoptionModal('${pet.pet_name}')" class="btn openModal text-teal-600 text-lg font-semibold">Adopt</button>
      <button onclick="loadDetails('${pet.petId}')" class="btn text-teal-600 text-lg font-semibold">Details</button>
     </div>
    </div>
@@ -108,6 +117,52 @@ const loadDetails = async (id = "1") => {
   makingDetailsModal(data.petData)
 }
 
+const loadAdoptionModal = (name) => {
+
+  makingAdoptionModal(name);
+  my_modal_5.showModal();
+  const closeModal = document.getElementById("close")
+  setTimeout(function () {
+    closeModal.click();
+  }, 3000);
+}
+
+const makingAdoptionModal = (name) => {
+  const adoptionModal = document.getElementById("my_modal_5");
+  const messageDiv = document.createElement("div");
+  messageDiv.classList = "modal-box flex flex-col gap-6 items-center justify-center";
+  messageDiv.innerHTML = `
+          <img src = "https://img.icons8.com/?size=48&id=TPAsV6Sqk7pu&format=gif" />
+          <h3 class="text-lg font-bold">You are going to adopt ${name}</h3>
+          <h1 class = "text-xl font-bold" id="countdown">3</h1>
+         <div class="modal-action">
+              <form method="dialog">
+        <button id="close" class=""></button>
+  </form>
+</div>
+`
+
+  adoptionModal.appendChild(messageDiv);
+  decreasing(3);
+  // const adoptionButton = document.getElementById("clickedAdoption");
+  // console.log(adoptionButton.innerText);
+}
+// decreasing();
+const decreasing = (num) => {
+  let count = num;
+  const countdownElement = document.getElementById("countdown");
+
+  const countdownInterval = setInterval(() => {
+    count--;
+    if (count > 0) {
+      countdownElement.innerText = count;
+    } else {
+      countdownElement.innerText = "Done!";
+      clearInterval(countdownInterval);
+    }
+  }, 1000);
+}
+
 
 const makingDetailsModal = (pet) => {
   console.log(pet)
@@ -115,51 +170,49 @@ const makingDetailsModal = (pet) => {
   modalData = document.createElement("div");
   modalData.classList = "modal-box w-11/12 max-w-5xl";
   modalData.innerHTML = `
-     <figure class="px-3 pt-3 w-full">
+  <figure class="px-3 pt-3 w-full">
     <img
-     src= ${pet.image}
-     alt="Pet"
-     class="rounded-xl h-full w-full object-cover" />
+      src= ${pet.image}
+      alt="Pet"
+      class="rounded-xl h-full w-full object-cover" />
    </figure>
-   <div class=" p-3 flex flex-col gap-3">
+  <div class=" p-3 flex flex-col gap-3">
     <h2 class="text-2xl font-bold">${pet.pet_name}</h2>
-    <div class = "grid grid-cols-2">
-       <div class = "col-span-1">
-        <p class = ""><i class="fa-solid fa-qrcode"></i> Breed: ${pet.breed}</p>
+    <div class="grid grid-cols-2">
+      <div class="col-span-1">
+        <p class=""><i class="fa-solid fa-qrcode"></i> Breed: ${pet.breed}</p>
         <p><i class="fa-solid fa-mars-and-venus"></i> Gender: ${pet.gender}</p>
         <p><i class="fa-solid fa-shield-virus"></i> Vaccinated Status: ${pet.vaccinated_status}</p>
-       </div>
-      <div class = "col-span-1">  
+      </div>
+      <div class="col-span-1">
         <p><i class="fa-solid fa-calendar-days"></i> Birth: ${pet.date_of_birth}</p>
-        <p><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.price}</p>  
-       </div>
+        <p><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.price}</p>
+      </div>
     </div>
-       <hr>
-     <h2 class="text-xl text-justify font-semibold">Details Information</h2>
-    <p> ${pet.pet_details}</p>
-      <hr>  
-    </div>
-            <div >
-              <form method="dialog" class="flex">
-                <button class="btn flex-grow">Close</button>
-              </form>
-            </div>
-  `
+    <hr>
+      <h2 class="text-xl text-justify font-semibold">Details Information</h2>
+      <p> ${pet.pet_details}</p>
+      <hr>
+      </div>
+      <div >
+        <form method="dialog" class="flex">
+          <button class="btn flex-grow">Close</button>
+        </form>
+      </div>
+      `
   modalDataContainer.appendChild(modalData)
 }
 
 // Modal
 // const openModalBtn = document.getElementsByClassName("openModal");
 // const modal = document.getElementById("my_modal_5");
-// const closeModalBtn = document.getElementById("close-btn");
+// ;
 
 // const openCloseModal = () => {
 //   openModalBtn.addEventListener("click", function () {
 //     modal.showModal();
 
-//     setTimeout(function () {
-//       closeModalBtn.click();
-//     }, 3000);
+//
 //   });
 // }
 
