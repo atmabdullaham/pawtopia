@@ -46,7 +46,7 @@ setTimeout(function () {
 }, 1000)
 
 const loadPetsCategory = async (petCategory) => {
-  console.log(petCategory)
+  // console.log(petCategory)
   const res = await fetch(`https://openapi.programming-hero.com/api/peddy/category/${petCategory}`)
   const data = await res.json();
   showPets(data.data);
@@ -55,7 +55,7 @@ const showPets = (pets) => {
   const petCardContainer = document.getElementById("pet-card");
   petCardContainer.innerHTML = "";
   pets.forEach(pet => {
-    console.log(pet)
+    // console.log(pet)
     const cardDiv = document.createElement("div")
     cardDiv.classList = " bg-base-100  shadow-xl border-gray-300 border"
     cardDiv.innerHTML = `
@@ -74,8 +74,8 @@ const showPets = (pets) => {
     <hr>
     <div class=" flex justify-between card-actions ">
      <button onclick = "showLikedPic('${pet.image}')" class="btn"><i class="fa-regular fa-thumbs-up"></i></button>
-     <button class="btn text-teal-600 text-lg font-semibold">Adopt</button>
-     <button class="btn text-teal-600 text-lg font-semibold">Details</button>
+     <button onclick = "openCloseModal()" class="btn openModal text-teal-600 text-lg font-semibold">Adopt</button>
+     <button onclick="loadDetails('${pet.petId}')" class="btn text-teal-600 text-lg font-semibold">Details</button>
     </div>
    </div>
   `
@@ -86,7 +86,7 @@ const showPets = (pets) => {
 }
 
 const showLikedPic = (image) => {
-  console.log(image)
+  // console.log(image)
   const likedPetsContainer = document.getElementById("liked-pets")
   const picContainer = document.createElement("div")
   picContainer.classList = "bg-base-100 border rounded-xl max-h-fit"
@@ -101,5 +101,66 @@ const showLikedPic = (image) => {
   likedPetsContainer.appendChild(picContainer)
 }
 
+const loadDetails = async (id = "1") => {
+  const res = await fetch(`https://openapi.programming-hero.com/api/peddy/pet/${id}`)
+  const data = await res.json();
+  my_modal_4.showModal()
+  makingDetailsModal(data.petData)
+}
+
+
+const makingDetailsModal = (pet) => {
+  console.log(pet)
+  modalDataContainer = document.getElementById("my_modal_4");
+  modalData = document.createElement("div");
+  modalData.classList = "modal-box w-11/12 max-w-5xl";
+  modalData.innerHTML = `
+     <figure class="px-3 pt-3 w-full">
+    <img
+     src= ${pet.image}
+     alt="Pet"
+     class="rounded-xl h-full w-full object-cover" />
+   </figure>
+   <div class=" p-3 flex flex-col gap-3">
+    <h2 class="text-2xl font-bold">${pet.pet_name}</h2>
+    <div class = "grid grid-cols-2">
+       <div class = "col-span-1">
+        <p class = ""><i class="fa-solid fa-qrcode"></i> Breed: ${pet.breed}</p>
+        <p><i class="fa-solid fa-mars-and-venus"></i> Gender: ${pet.gender}</p>
+        <p><i class="fa-solid fa-shield-virus"></i> Vaccinated Status: ${pet.vaccinated_status}</p>
+       </div>
+      <div class = "col-span-1">  
+        <p><i class="fa-solid fa-calendar-days"></i> Birth: ${pet.date_of_birth}</p>
+        <p><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.price}</p>  
+       </div>
+    </div>
+       <hr>
+     <h2 class="text-xl text-justify font-semibold">Details Information</h2>
+    <p> ${pet.pet_details}</p>
+      <hr>  
+    </div>
+            <div >
+              <form method="dialog" class="flex">
+                <button class="btn flex-grow">Close</button>
+              </form>
+            </div>
+  `
+  modalDataContainer.appendChild(modalData)
+}
 
 // Modal
+// const openModalBtn = document.getElementsByClassName("openModal");
+// const modal = document.getElementById("my_modal_5");
+// const closeModalBtn = document.getElementById("close-btn");
+
+// const openCloseModal = () => {
+//   openModalBtn.addEventListener("click", function () {
+//     modal.showModal();
+
+//     setTimeout(function () {
+//       closeModalBtn.click();
+//     }, 3000);
+//   });
+// }
+
+
