@@ -27,7 +27,7 @@ const showCategory = (category) => {
 
 const loadPet = async () => {
   document.getElementById("spin").classList.add("hidden")
-  // document.getElementById("pet-card").classList.add("grid")
+  document.getElementById("pet-card").classList.add("grid")
 
   const res = await fetch(`https://openapi.programming-hero.com/api/peddy/pets`);
   const data = await res.json();
@@ -37,11 +37,11 @@ const loadPet = async () => {
 
 const showSpinner = () => {
   document.getElementById("spin").classList.remove("hidden");
-  // document.getElementById("pet-card").classList.remove("grid")
-  const petCardDiv = document.getElementById("container");
-  petCardDiv.prepend(document.getElementById('spin'));
-  const petCardContainer = document.getElementById("pet-card");
-  petCardContainer.innerHTML = "";
+  document.getElementById("pet-card").classList.remove("grid")
+  const petCardDiv = document.getElementById("pet-card");
+  petCardDiv.append(document.getElementById('spin'));
+  // const petCardContainer = document.getElementById("pet-card");
+  // petCardContainer.innerHTML = "";
 };
 showSpinner();
 setTimeout(function () {
@@ -53,14 +53,23 @@ const loadPetsCategory = async (petCategory) => {
   // console.log(petCategory)
   const res = await fetch(`https://openapi.programming-hero.com/api/peddy/category/${petCategory}`)
   const data = await res.json();
+  const petCardContainer = document.getElementById("pet-card");
+  petCardContainer.innerHTML = "";
   showSpinner();
+
+
+
   setTimeout(function () {
     document.getElementById("spin").classList.add("hidden")
+    document.getElementById("pet-card").classList.add("grid")
     showPets(data.data);
   }, 1000)
 
 }
 const showPets = (pets) => {
+  const spiner = document.getElementById("spin");
+  const spinContainer = document.getElementById("spin-container");
+  spinContainer.append(spiner);
   const petCardContainer = document.getElementById("pet-card");
   petCardContainer.innerHTML = "";
   pets.forEach(pet => {
