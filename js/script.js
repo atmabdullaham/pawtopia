@@ -34,8 +34,10 @@ const loadPet = async () => {
 
   const pets = data.pets
   // console.log(pets)
+  let arrayOfCategory = []
   pets.forEach(pet => {
-    if ('category' in pet !== 'category'[0]) {
+    arrayOfCategory.push(pet.category)
+    if (arrayOfCategory.every(value => value !== arrayOfCategory[1])) {
       document.getElementById("sort").addEventListener('click', function () {
         sortPetByPrice(data.pets);
       })
@@ -69,14 +71,16 @@ const loadPetsCategory = async (petCategory) => {
   const petCardContainer = document.getElementById("pet-card");
   petCardContainer.innerHTML = "";
   showSpinner();
-  const pets = data;
-
-  // if (pets.every(pet => pet.category === pets[0].category)) {
-  //   document.getElementById("sort").addEventListener('click', function () {
-  //     sortPetByPrice(data.data);
-  //   })
-
-  // }
+  const pets = data.data
+  let arrayOfCategory = []
+  pets.forEach(pet => {
+    arrayOfCategory.push(pet.category)
+    if (arrayOfCategory.every(value => value === arrayOfCategory[1])) {
+      document.getElementById("sort").addEventListener('click', function () {
+        sortPetByPrice(data.data);
+      })
+    }
+  })
 
 
 
