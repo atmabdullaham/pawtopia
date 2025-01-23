@@ -31,10 +31,21 @@ const loadPet = async () => {
   const res = await fetch(`https://openapi.programming-hero.com/api/peddy/pets`);
   const data = await res.json();
   showPets(data.pets)
-  // console.log(data)
-  document.getElementById("sort").addEventListener('click', function () {
-    sortPetByPrice(data.pets);
+
+  const pets = data.pets
+  // console.log(pets)
+  pets.forEach(pet => {
+    if ('category' in pet !== 'category'[0]) {
+      document.getElementById("sort").addEventListener('click', function () {
+        sortPetByPrice(data.pets);
+      })
+    }
   })
+
+  // if (pets.every(pet => pet.category != pets[0].category)) {
+
+  // }
+  // 
 }
 
 const showSpinner = () => {
@@ -58,6 +69,14 @@ const loadPetsCategory = async (petCategory) => {
   const petCardContainer = document.getElementById("pet-card");
   petCardContainer.innerHTML = "";
   showSpinner();
+  const pets = data;
+
+  // if (pets.every(pet => pet.category === pets[0].category)) {
+  //   document.getElementById("sort").addEventListener('click', function () {
+  //     sortPetByPrice(data.data);
+  //   })
+
+  // }
 
 
 
@@ -107,6 +126,7 @@ const showPets = (pets) => {
 
 // sort cart function
 function sortPetByPrice(pets) {
+  console.log(pets)
   pets.sort((a, b) => a.price - b.price);
   showPets(pets);
 }
