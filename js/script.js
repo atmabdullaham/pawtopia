@@ -95,19 +95,20 @@ const showPets = (pets) => {
   if (pets.length == 0) {
     petCardContainer.classList.remove("grid")
     petCardContainer.innerHTML = `
-    <div class ="min-h-[300px] flex mt-4 flex-col gap-5 justify-center items-center"  > 
-       <img src ="../images/error.webp" />
-       <h2 class ="text-center text-xl font-bold" >"We currently don't have this category available. However, we offer a variety of other wonderful pets that you might love! Feel free to explore our collection and find the perfect companion for you." </h2>
+    <div class ="min-h-[300px] flex flex-col gap-8 justify-center items-center"  > 
+       <img 
+       src ="../images/error.webp" />
+       <h2 class ="text-center text-xl font-bold px-4" >"We currently don't have this category available. However, we offer a variety of other wonderful pets that you might love! Feel free to explore our collection and find the perfect companion for you." </h2>
     </div>
     `
     return;
   } else {
     petCardContainer.classList.add("grid");
   }
-  pets.forEach(pet => {
+  pets.forEach((pet, index) => {
     // console.log(pet)
     const cardDiv = document.createElement("div")
-    cardDiv.classList = " bg-base-100 shadow-xl border-gray-300 border pet-card-div"
+    cardDiv.classList = " bg-base-100 rounded-xl  border-gray-300 border pet-card-div"
     cardDiv.innerHTML = `
     <figure class="px-5 pt-5">
     <img
@@ -124,14 +125,21 @@ const showPets = (pets) => {
     <hr>
     <div class=" flex justify-between card-actions ">
      <button onclick = "showLikedPic('${pet.image}')" class="btn"><i class="fa-regular fa-thumbs-up"></i></button>
-     <button id = "clickedAdoption" onclick="loadAdoptionModal('${pet.pet_name}')" class="btn openModal text-teal-600 text-lg font-semibold">Adopt</button>
-     <button onclick="loadDetails('${pet.petId}')" class="btn text-teal-600 text-lg font-semibold">Details</button>
+      <button 
+           id = "clickedAdoption-${index}" 
+           onclick="loadAdoptionModal('${pet.pet_name}', 'clickedAdoption-${index}')" 
+           class="btn openModal text-teal-600 text-lg font-semibold ">
+         Adopt
+      </button>
+     <button 
+           onclick="loadDetails('${pet.petId}')" 
+           class="btn text-teal-600 text-lg font-semibold">
+        Details
+     </button>
     </div>
    </div>
   `
     petCardContainer.appendChild(cardDiv)
-
-
   });
 }
 
@@ -166,25 +174,39 @@ const loadDetails = async (id = "1") => {
   makingDetailsModal(data.petData)
 }
 
-const loadAdoptionModal = (name) => {
-
+const loadAdoptionModal = (name, buttonId) => {
   makingAdoptionModal(name);
   my_modal_5.showModal();
+
   const closeModal = document.getElementById("close")
   setTimeout(function () {
+
     closeModal.click();
+    // document.getElementById("clickedAdoption").classList.add("btn-disabled")
+    // document.getElementById("clickedAdoption").innerText = "Adopted"
+    const button = document.getElementById(buttonId);
+    if (button) {
+      console.log("Button clicked:", button);
+      console.log("Pet selected:", name);
+      button.innerText = "Adopted";
+      button.classList.add('btn-disabled')
+    }
+
   }, 3000);
+  decreasing();
 }
 
 const makingAdoptionModal = (name) => {
   const adoptionModal = document.getElementById("my_modal_5");
+  adoptionModal.innerHTML = "";
   const messageDiv = document.createElement("div");
-  messageDiv.classList = "modal-box flex flex-col gap-6 items-center justify-center";
+  messageDiv.classList = "modal-box flex flex-col gap-6 border border-gray-300 items-center justify-center max-w-[350px] max-h-[300px]";
   messageDiv.innerHTML = `
           <img src = "https://img.icons8.com/?size=48&id=TPAsV6Sqk7pu&format=gif" />
-          <h3 class="text-lg font-bold">You are going to adopt ${name}</h3>
+          <h3 class="text-xl font-bold">Congrats!!</h3>
+          <h3 class="text-lg font-bold">You are going to adopt <span class = "text-xl font-bold" >"${name}"</span> </h3>
           <h1 class = "text-xl font-bold" id="countdown">3</h1>
-         <div class="modal-action">
+         <div class="modal-action hidden">
               <form method="dialog">
         <button id="close" class=""></button>
   </form>
@@ -192,19 +214,24 @@ const makingAdoptionModal = (name) => {
 `
 
   adoptionModal.appendChild(messageDiv);
-  decreasing(3);
   // const adoptionButton = document.getElementById("clickedAdoption");
   // console.log(adoptionButton.innerText);
 }
 // decreasing();
-const decreasing = (num) => {
-  let count = num;
+const decreasing = () => {
+  console.log()
+  let count = 3;
+  // console.log(count)
   const countdownElement = document.getElementById("countdown");
 
   const countdownInterval = setInterval(() => {
     count--;
+    // console.log(count)
     if (count > 0) {
+      // console.log(count)
+      const countdownElement = document.getElementById("countdown")
       countdownElement.innerText = count;
+      console.log(countdownElement.innerText);
     } else {
       countdownElement.innerText = "Done!";
       clearInterval(countdownInterval);
@@ -252,14 +279,3 @@ const makingDetailsModal = (pet) => {
   modalDataContainer.appendChild(modalData)
 }
 
-// document.getElementById("sort").addEventListener("click", function () {
-//   const listItems = document.querySelectorAll('#pet-card .pet-card-div');
-//   // const listItems = document.getElementsByClassName('pet-card-div');
-//   const listStringifyed = JSON.stringify(listItems)
-//   console.log(listStringifyed.json())
-//   console.log(listStringifyed)
-//   listItems.forEach((item) => {
-//     console.log(item);  // Works in modern browsers
-//   })
-//   // console.log();
-// })
