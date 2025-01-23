@@ -18,7 +18,15 @@ const showCategory = (category) => {
     const buttonContainer = document.createElement("div");
     buttonContainer.classList = "py-6"
     buttonContainer.innerHTML = `
-    <button id = button-${element.id} onclick = "loadPetsCategory('${element.category.toLowerCase()}','button-${element.id}')" class = "flex gap-4 my-6  btn border bg-slate-100 px-10 font-bold text-xl category-button"> <img class = "w-[30px]" src ="${element.category_icon}" />  ${element.category} </button>
+    <button 
+          id = button-${element.id} 
+          onclick = "loadPetsCategory('${element.category.toLowerCase()}','button-${element.id}')" 
+          class = "flex gap-4 btn border border-gray-300 bg-slate-50 px-10 font-bold text-xl category-button rounded-md h-[60px] hover:bg-teal-50"> 
+          <img 
+              class = "w-[30px]" 
+              src ="${element.category_icon}" 
+              />  ${element.category} 
+    </button>
     `
 
     //  add button to the category container
@@ -83,7 +91,7 @@ const showSpinner = () => {
 showSpinner();
 setTimeout(function () {
   loadPet()
-}, 3000)
+}, 2000)
 
 const loadPetsCategory = async (petCategory, btn) => {
   // const buttonId = btn
@@ -115,7 +123,7 @@ const loadPetsCategory = async (petCategory, btn) => {
     document.getElementById("spin").classList.add("hidden")
     document.getElementById("pet-card").classList.add("grid")
     showPets(data.data);
-  }, 1000)
+  }, 2000)
 
 }
 const showPets = (pets) => {
