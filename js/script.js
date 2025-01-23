@@ -43,11 +43,6 @@ const loadPet = async () => {
       })
     }
   })
-
-  // if (pets.every(pet => pet.category != pets[0].category)) {
-
-  // }
-  // 
 }
 
 const showSpinner = () => {
@@ -97,6 +92,18 @@ const showPets = (pets) => {
   spinContainer.append(spiner);
   const petCardContainer = document.getElementById("pet-card");
   petCardContainer.innerHTML = "";
+  if (pets.length == 0) {
+    petCardContainer.classList.remove("grid")
+    petCardContainer.innerHTML = `
+    <div class ="min-h-[300px] flex mt-4 flex-col gap-5 justify-center items-center"  > 
+       <img src ="../images/error.webp" />
+       <h2 class ="text-center text-xl font-bold" >"We currently don't have this category available. However, we offer a variety of other wonderful pets that you might love! Feel free to explore our collection and find the perfect companion for you." </h2>
+    </div>
+    `
+    return;
+  } else {
+    petCardContainer.classList.add("grid");
+  }
   pets.forEach(pet => {
     // console.log(pet)
     const cardDiv = document.createElement("div")
