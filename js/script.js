@@ -18,14 +18,39 @@ const showCategory = (category) => {
     const buttonContainer = document.createElement("div");
     buttonContainer.classList = "py-6"
     buttonContainer.innerHTML = `
-    <button id = button-${element.id} onclick = "loadPetsCategory('${element.category.toLowerCase()}')" class = "flex gap-4 my-6  btn border bg-slate-100 px-10 font-bold text-xl"> <img class = "w-[30px]" src ="${element.category_icon}" />  ${element.category} </button>
+    <button id = button-${element.id} onclick = "loadPetsCategory('${element.category.toLowerCase()}','button-${element.id}')" class = "flex gap-4 my-6  btn border bg-slate-100 px-10 font-bold text-xl category-button"> <img class = "w-[30px]" src ="${element.category_icon}" />  ${element.category} </button>
     `
+
     //  add button to the category container
     categoryDiv.append(buttonContainer);
 
   });
 
 }
+
+// Remove active button class 
+const activeButtonDesignRemover = () => {
+
+  const categoryButtonContainer = document.getElementsByClassName("category-button");
+  for (let button of categoryButtonContainer) {
+    button.classList.remove('border');
+    button.classList.remove('border-teal-600');
+    button.classList.remove('bg-teal-50');
+    button.classList.remove('rounded-3xl');
+  }
+}
+
+// active button category:
+const activeButtonDesign = (id) => {
+  const theButton = document.getElementById(id);
+  theButton.classList.add('border');
+  theButton.classList.add('border-teal-600');
+  theButton.classList.add('bg-teal-50');
+  theButton.classList.add('rounded-3xl');
+
+
+}
+
 
 const loadPet = async () => {
   document.getElementById("spin").classList.add("hidden")
@@ -60,14 +85,20 @@ setTimeout(function () {
   loadPet()
 }, 3000)
 
-const loadPetsCategory = async (petCategory) => {
+const loadPetsCategory = async (petCategory, btn) => {
+  // const buttonId = btn
+  // console.log(buttonId)
+
 
   // console.log(petCategory)
   const res = await fetch(`https://openapi.programming-hero.com/api/peddy/category/${petCategory}`)
   const data = await res.json();
   const petCardContainer = document.getElementById("pet-card");
   petCardContainer.innerHTML = "";
+  // activeButtonDesign(button-)
   showSpinner();
+  activeButtonDesignRemover()
+  activeButtonDesign(btn)
   const pets = data.data
   let arrayOfCategory = []
   pets.forEach(pet => {
@@ -190,7 +221,7 @@ const loadAdoptionModal = (name, buttonId) => {
     const button = document.getElementById(buttonId);
     if (button) {
       console.log("Button clicked:", button);
-      console.log("Pet selected:", name); j
+      console.log("Pet selected:", name);
       button.innerText = "Adopted";
       button.classList.add('btn-disabled')
     }
@@ -281,7 +312,9 @@ const makingDetailsModal = (pet) => {
       `
   modalDataContainer.appendChild(modalData)
 }
-
+// Go to adoption section
 const goAdopt = () => {
   document.getElementById("adoption-div").scrollIntoView({ behavior: "smooth" })
 }
+
+// Active button functionality
