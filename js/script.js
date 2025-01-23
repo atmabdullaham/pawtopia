@@ -28,11 +28,13 @@ const showCategory = (category) => {
 const loadPet = async () => {
   document.getElementById("spin").classList.add("hidden")
   document.getElementById("pet-card").classList.add("grid")
-
   const res = await fetch(`https://openapi.programming-hero.com/api/peddy/pets`);
   const data = await res.json();
   showPets(data.pets)
   // console.log(data)
+  document.getElementById("sort").addEventListener('click', function () {
+    sortPetByPrice(data.pets);
+  })
 }
 
 const showSpinner = () => {
@@ -75,7 +77,7 @@ const showPets = (pets) => {
   pets.forEach(pet => {
     // console.log(pet)
     const cardDiv = document.createElement("div")
-    cardDiv.classList = " bg-base-100  shadow-xl border-gray-300 border"
+    cardDiv.classList = " bg-base-100 shadow-xl border-gray-300 border pet-card-div"
     cardDiv.innerHTML = `
     <figure class="px-5 pt-5">
     <img
@@ -88,7 +90,7 @@ const showPets = (pets) => {
     <p class = ""><i class="fa-solid fa-qrcode"></i> Breed: ${pet.breed}</p>
     <p><i class="fa-solid fa-calendar-days"></i> Birth: ${pet.date_of_birth}</p>
     <p><i class="fa-solid fa-mars-and-venus"></i> Gender: ${pet.gender}</p>
-    <p><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.price}</p>
+    <p ><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.price}</p>
     <hr>
     <div class=" flex justify-between card-actions ">
      <button onclick = "showLikedPic('${pet.image}')" class="btn"><i class="fa-regular fa-thumbs-up"></i></button>
@@ -102,6 +104,13 @@ const showPets = (pets) => {
 
   });
 }
+
+// sort cart function
+function sortPetByPrice(pets) {
+  pets.sort((a, b) => a.price - b.price);
+  showPets(pets);
+}
+
 
 const showLikedPic = (image) => {
   // console.log(image)
@@ -212,17 +221,14 @@ const makingDetailsModal = (pet) => {
   modalDataContainer.appendChild(modalData)
 }
 
-// Modal
-// const openModalBtn = document.getElementsByClassName("openModal");
-// const modal = document.getElementById("my_modal_5");
-// ;
-
-// const openCloseModal = () => {
-//   openModalBtn.addEventListener("click", function () {
-//     modal.showModal();
-
-//
-//   });
-// }
-
-
+// document.getElementById("sort").addEventListener("click", function () {
+//   const listItems = document.querySelectorAll('#pet-card .pet-card-div');
+//   // const listItems = document.getElementsByClassName('pet-card-div');
+//   const listStringifyed = JSON.stringify(listItems)
+//   console.log(listStringifyed.json())
+//   console.log(listStringifyed)
+//   listItems.forEach((item) => {
+//     console.log(item);  // Works in modern browsers
+//   })
+//   // console.log();
+// })
