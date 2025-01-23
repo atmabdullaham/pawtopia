@@ -13,16 +13,18 @@ const showCategory = (category) => {
   category.forEach(element => {
     // const category = element.category.toLowerCase();
     // console.log(category);
-    // console.log(element.category)
+    console.log(element)
     // create a button
     const buttonContainer = document.createElement("div");
     buttonContainer.classList = "py-6"
     buttonContainer.innerHTML = `
-    <button onclick = "loadPetsCategory('${element.category.toLowerCase()}')" class = "flex gap-4 my-6  btn border bg-slate-100 px-10 font-bold text-xl"> <img class = "w-[30px]" src ="${element.category_icon}" />  ${element.category} </button>
+    <button id = button-${element.id} onclick = "loadPetsCategory('${element.category.toLowerCase()}')" class = "flex gap-4 my-6  btn border bg-slate-100 px-10 font-bold text-xl"> <img class = "w-[30px]" src ="${element.category_icon}" />  ${element.category} </button>
     `
     //  add button to the category container
     categoryDiv.append(buttonContainer);
+
   });
+
 }
 
 const loadPet = async () => {
@@ -78,7 +80,6 @@ const loadPetsCategory = async (petCategory) => {
   })
 
 
-
   setTimeout(function () {
     document.getElementById("spin").classList.add("hidden")
     document.getElementById("pet-card").classList.add("grid")
@@ -118,10 +119,10 @@ const showPets = (pets) => {
    </figure>
    <div class=" p-5 flex flex-col gap-3">
     <h2 class="text-2xl font-bold">${pet.pet_name}</h2>
-    <p class = ""><i class="fa-solid fa-qrcode"></i> Breed: ${pet.breed}</p>
-    <p><i class="fa-solid fa-calendar-days"></i> Birth: ${pet.date_of_birth}</p>
-    <p><i class="fa-solid fa-mars-and-venus"></i> Gender: ${pet.gender}</p>
-    <p ><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.price}</p>
+    <p class = ""><i class="fa-solid fa-qrcode"></i> Breed: ${pet.breed ? pet.breed : "Not Available"}</p>
+    <p><i class="fa-solid fa-calendar-days"></i> Birth: ${pet.date_of_birth ? pet.date_of_birth : "Not Available"}</p>
+    <p><i class="fa-solid fa-mars-and-venus"></i> Gender: ${pet.gender ? pet.gender : "Not Available"}</p>
+    <p ><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.price ? pet.price : "Not Available"}</p>
     <hr>
     <div class=" flex justify-between card-actions ">
      <button onclick = "showLikedPic('${pet.image}')" class="btn"><i class="fa-regular fa-thumbs-up"></i></button>
@@ -174,6 +175,7 @@ const loadDetails = async (id = "1") => {
   makingDetailsModal(data.petData)
 }
 
+
 const loadAdoptionModal = (name, buttonId) => {
   makingAdoptionModal(name);
   my_modal_5.showModal();
@@ -187,7 +189,7 @@ const loadAdoptionModal = (name, buttonId) => {
     const button = document.getElementById(buttonId);
     if (button) {
       console.log("Button clicked:", button);
-      console.log("Pet selected:", name);
+      console.log("Pet selected:", name); j
       button.innerText = "Adopted";
       button.classList.add('btn-disabled')
     }
@@ -256,18 +258,18 @@ const makingDetailsModal = (pet) => {
     <h2 class="text-2xl font-bold">${pet.pet_name}</h2>
     <div class="grid grid-cols-2">
       <div class="col-span-1">
-        <p class=""><i class="fa-solid fa-qrcode"></i> Breed: ${pet.breed}</p>
-        <p><i class="fa-solid fa-mars-and-venus"></i> Gender: ${pet.gender}</p>
-        <p><i class="fa-solid fa-shield-virus"></i> Vaccinated Status: ${pet.vaccinated_status}</p>
+        <p class=""><i class="fa-solid fa-qrcode"></i> Breed: ${pet.breed ? pet.breed : "Not Available"}</p>
+        <p><i class="fa-solid fa-mars-and-venus"></i> Gender: ${pet.gender ? pet.gender : "Not Available"}</p>
+        <p><i class="fa-solid fa-shield-virus"></i> Vaccinated Status: ${pet.vaccinated_status ? pet.vaccinated_status : "Not Available"}</p>
       </div>
       <div class="col-span-1">
-        <p><i class="fa-solid fa-calendar-days"></i> Birth: ${pet.date_of_birth}</p>
-        <p><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.price}</p>
+        <p><i class="fa-solid fa-calendar-days"></i> Birth: ${pet.date_of_birth ? pet.date_of_birth : "Not Available"}</p>
+        <p><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.price ? pet.price : "Not Available"}</p>
       </div>
     </div>
     <hr>
       <h2 class="text-xl text-justify font-semibold">Details Information</h2>
-      <p> ${pet.pet_details}</p>
+      <p> ${pet.pet_details ? pet.pet_details : "Not Available"}</p>
       <hr>
       </div>
       <div >
