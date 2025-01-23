@@ -100,7 +100,9 @@
             the readable content of a page when looking <br />
             at its layout. The point of using Lorem Ipsum is that it has a.
           </p>
-          <button class="btn bg-blue-400 hover:bg-blue-300">View More</button>
+          <button onclick="goAdopt()" class="btn bg-blue-400 hover:bg-blue-300">
+            View More
+          </button>
         </div>
         <div class="flex justify-center items-center pt-5">
           <img class="w-[600px]" src="./images/pet.webp" alt="" />
@@ -110,7 +112,10 @@
     <main class="w-11/12 mx-auto pb-10">
       <div>
         <!-- 1st div -->
-        <div class="flex flex-col justify-center items-center gap-3">
+        <div
+          id="adoption-div"
+          class="flex flex-col justify-center items-center gap-3"
+        >
           <h2 class="text-3xl font-bold">Adopt Your Best Friend</h2>
           <p>
             It is a long established fact that a reader will be distracted by

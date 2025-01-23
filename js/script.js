@@ -281,3 +281,6 @@ const makingDetailsModal = (pet) => {
   modalDataContainer.appendChild(modalData)
 }
 
+const goAdopt = () => {
+  document.getElementById("adoption-div").scrollIntoView({ behavior: "smooth" })
+}
