@@ -16,12 +16,12 @@ const showCategory = (category) => {
     console.log(element)
     // create a button
     const buttonContainer = document.createElement("div");
-    buttonContainer.classList = "py-6"
+    buttonContainer.classList = "py-6 flex items-center justify-center h-[60px]"
     buttonContainer.innerHTML = `
     <button 
           id = button-${element.id} 
           onclick = "loadPetsCategory('${element.category.toLowerCase()}','button-${element.id}')" 
-          class = "flex gap-2 md:gap-4 btn border border-gray-300 bg-slate-50 px-5 md:px-10 font-semibold md:font-bold text-lg md:text-xl category-button rounded-md h-[60px] hover:bg-teal-50"> 
+          class = "flex  md:gap-4 btn border border-gray-300 bg-slate-50 px-5 md:px-10 font-semibold md:font-bold text-xl category-button rounded-md w-[130px] md:w-auto md:h-[60px] hover:bg-teal-50"> 
           <img 
               class = "w-[20px] md:w-[30px]" 
               src ="${element.category_icon}" 
@@ -164,17 +164,17 @@ const showPets = (pets) => {
     <p><i class="fa-solid fa-mars-and-venus"></i> Gender: ${pet.gender ? pet.gender : "Not Available"}</p>
     <p ><i class="fa-solid fa-dollar-sign"></i> Price: ${pet.price ? pet.price : "Not Available"}</p>
     <hr>
-    <div class=" flex justify-between card-actions ">
+    <div class=" flex  justify-between card-actions ">
      <button onclick = "showLikedPic('${pet.image}')" class="btn"><i class="fa-regular fa-thumbs-up"></i></button>
       <button 
            id = "clickedAdoption-${index}" 
            onclick="loadAdoptionModal('${pet.pet_name}', 'clickedAdoption-${index}')" 
-           class="btn openModal text-teal-600 text-lg font-semibold ">
+           class="btn openModal text-teal-600 text-lg font-semibold w-[70px] md:w-auto ">
          Adopt
       </button>
      <button 
            onclick="loadDetails('${pet.petId}')" 
-           class="btn text-teal-600 text-lg font-semibold">
+           class="btn text-teal-600 text-lg font-semibold w-[75px] md:w-auto">
         Details
      </button>
     </div>

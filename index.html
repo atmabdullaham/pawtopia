@@ -65,8 +65,9 @@
                 tabindex="0"
                 class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
-                <li><a>Item 1</a></li>
-                <li><a>Item 3</a></li>
+                <li><a>Home</a></li>
+                <li><a>Shop</a></li>
+                <li><a>Contact</a></li>
               </ul>
             </div>
             <img class="w-[150px]" src="./logo.png" alt="" />
@@ -102,7 +103,10 @@
             the readable content of a page when looking <br />
             at its layout. The point of using Lorem Ipsum is that it has a.
           </p>
-          <button onclick="goAdopt()" class="btn bg-blue-400 hover:bg-blue-300">
+          <button
+            onclick="goAdopt()"
+            class="btn bg-teal-600 hover:bg-teal-700 text-white text-lg font-semibold"
+          >
             View More
           </button>
         </div>
@@ -129,10 +133,10 @@
         <!-- Category div -->
         <div
           id="categories"
-          class="grid grid-cols-2 py-3 md:flex md:justify-between"
+          class="py-6 grid gap-2 grid-cols-2 md:flex md:justify-between"
         ></div>
         <!-- best deal -->
-        <div class="flex justify-between pb-10">
+        <div class="flex justify-between pb-10 items-center">
           <h2 class="text-lg font-semibold">Best Deal for You</h2>
           <button
             id="sort"
