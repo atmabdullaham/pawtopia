@@ -155,7 +155,7 @@ const showPets = (pets) => {
     <img
      src= ${pet.image}
      alt="Pet"
-     class="rounded-xl" />
+     class="rounded-xl  h-full w-full  object-cover" />
    </figure>
    <div class=" p-5 flex flex-col gap-3">
     <h2 class="text-2xl font-bold">${pet.pet_name}</h2>
@@ -202,7 +202,7 @@ const showLikedPic = (image) => {
     <img
      src= ${image}
      alt="Pet"
-     class="rounded-xl" />
+     class="rounded-xl h-full w-full object-cover" />
    </figure>
   `
   likedPetsContainer.appendChild(picContainer)
