@@ -21,9 +21,9 @@ const showCategory = (category) => {
     <button 
           id = button-${element.id} 
           onclick = "loadPetsCategory('${element.category.toLowerCase()}','button-${element.id}')" 
-          class = "flex gap-4 btn border border-gray-300 bg-slate-50 px-10 font-bold text-xl category-button rounded-md h-[60px] hover:bg-teal-50"> 
+          class = "flex gap-2 md:gap-4 btn border border-gray-300 bg-slate-50 px-5 md:px-10 font-semibold md:font-bold text-lg md:text-xl category-button rounded-md h-[60px] hover:bg-teal-50"> 
           <img 
-              class = "w-[30px]" 
+              class = "w-[20px] md:w-[30px]" 
               src ="${element.category_icon}" 
               />  ${element.category} 
     </button>
