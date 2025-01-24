@@ -135,11 +135,11 @@ const showPets = (pets) => {
   if (pets.length == 0) {
     petCardContainer.classList.remove("grid")
     petCardContainer.innerHTML = `
-    <div class =" h-full bg-gray-300 flex flex-col gap-8 pt-24 items-center"  > 
+    <div class =" h-full bg-gray-300 flex flex-col gap-8 pt-24 pb-10 items-center"  > 
        <img 
        src ="../images/error.webp" />
-       <h2 class ="text-center text-xl font-bold px-4" >"We currently don't have this category available. " </h2>
-       <h2 class ="text-center text-xl font-bold px-4" >"However, we offer a variety of other wonderful pets that you might love! Feel free to explore our collection and find the perfect companion for you." </h2>
+       <h2 class ="text-center text-lg font-semibold md:text-xl md:font-bold px-4" >"We currently don't have this category available. " </h2>
+       <h2 class ="text-center text-lg font-semibold md:text-xl md:font-bold px-4" >"However, we offer a variety of other wonderful pets that you might love! Feel free to explore our collection and find the perfect companion for you." </h2>
     </div>
     `
     return;
